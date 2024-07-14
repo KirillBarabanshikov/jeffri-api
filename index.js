@@ -1,14 +1,14 @@
 import * as dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
-import { tasks, users } from "./routes/index.js";
+import { usersRouter } from "./routers/index.js";
 
 dotenv.config();
 const port = process.env.PORT;
 const connection = process.env.DB_CONNECTION;
 
 const app = express();
-app.use(express.json()).use("/api/users", users).use("/api/tasks", tasks);
+app.use(express.json()).use("/api/users", usersRouter);
 
 async function start() {
   try {
