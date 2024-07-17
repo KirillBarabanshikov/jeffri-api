@@ -1,4 +1,4 @@
-import { Task } from "../models/index.js";
+import { Task, User } from "../models/index.js";
 
 class TaskController {
   async create(req, res) {
@@ -36,6 +36,19 @@ class TaskController {
     try {
       const tasks = await Task.find({});
       res.status(200).json(tasks);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
+
+  async perform(req, res) {
+    try {
+      const task = await Task.findById(req.params.id);
+      const user = await User.findById("6693d107f6be68c9f9a759c4");
+      user.completedTasks.push(task._id);
+      user.balance += task.price;
+      await user.save();
+      res.status(200).json("OK");
     } catch (error) {
       res.status(500).json(error);
     }

@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
   tonAddress: { type: String, default: null },
   twitch: { type: Object, default: {} },
   referrals: { type: Array, default: [] },
-  completedTasks: { type: [Number], default: [] },
+  completedTasks: { type: [String], default: [] },
 });
 
 export const User = mongoose.model("User", userSchema);

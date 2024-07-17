@@ -10,3 +10,5 @@ tasksRouter.get("/", taskController.getAll);
 tasksRouter.delete("/:id", taskController.delete);
 
 tasksRouter.patch("/:id", taskController.update);
+
+tasksRouter.post("/:id/perform", taskController.perform);
