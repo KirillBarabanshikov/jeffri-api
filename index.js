@@ -1,17 +1,25 @@
 import * as dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
-import { tasksRouter, usersRouter } from "./routers/index.js";
+import {
+  authRouter,
+  farmRouter,
+  tasksRouter,
+  usersRouter,
+} from "./routers/index.js";
+import { authMiddleware } from "./middlewares/index.js";
 
 dotenv.config();
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 const connection = process.env.DB_CONNECTION;
 
 const app = express();
 app
   .use(express.json())
-  .use("/api/users", usersRouter)
-  .use("/api/tasks", tasksRouter);
+  .use("/api/auth", authRouter)
+  .use("/api/users", authMiddleware, usersRouter)
+  .use("/api/tasks", authMiddleware, tasksRouter)
+  .use("/api/farm", authMiddleware, farmRouter);
 
 async function start() {
   try {

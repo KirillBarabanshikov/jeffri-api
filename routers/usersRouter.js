@@ -3,4 +3,4 @@ import { userController } from "../controllers/index.js";
 
 export const usersRouter = express.Router();
 
-usersRouter.post("/", userController.create);
+usersRouter.get("/current", userController.getCurrent);

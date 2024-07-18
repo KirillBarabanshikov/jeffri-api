@@ -44,7 +44,7 @@ class TaskController {
   async perform(req, res) {
     try {
       const task = await Task.findById(req.params.id);
-      const user = await User.findById("6693d107f6be68c9f9a759c4");
+      const user = await User.findById(req.decodedData.id);
       user.completedTasks.push(task._id);
       user.balance += task.price;
       await user.save();
